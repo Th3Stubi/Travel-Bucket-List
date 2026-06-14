@@ -1,0 +1,191 @@
+package com.example.travelbucketlist.ui.features.auth
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.travelbucketlist.ui.theme.Dimens
+
+/**
+ * Displays the register user interface.
+ * This screen handles the layout and UI components.
+ */
+@Composable
+fun RegisterScreen() {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        // Main container for the register UI
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            val customWidthModifier = Modifier.fillMaxWidth(0.85f)
+
+            RegisterHeader(modifier = customWidthModifier)
+
+            Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+
+            RegisterFields(modifier = customWidthModifier)
+
+            Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+
+            RegisterButtons(modifier = customWidthModifier)
+        }
+    }
+}
+
+@Composable
+fun RegisterHeader(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Create Account",
+            fontSize = Dimens.fontTitle,
+            fontWeight = Bold,
+            modifier = Modifier.padding(vertical = Dimens.spacingSmall)
+        )
+        Text(
+            text = "Start your travel journey",
+            fontSize = Dimens.fontMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+        )
+    }
+}
+
+@Composable
+fun RegisterFields(modifier: Modifier = Modifier) {
+    var usernameInput by remember { mutableStateOf("") }
+    var emailInput by remember { mutableStateOf("") }
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
+    ) {
+        OutlinedTextField(
+            value = usernameInput,
+            onValueChange = { newValue -> usernameInput = newValue },
+            label = { Text(text = "Name") },
+            placeholder = { Text(text = "Your name") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = emailInput,
+            onValueChange = { newValue -> emailInput = newValue },
+            label = { Text(text = "Email") },
+            placeholder = { Text(text = "your@email.com") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        var isPasswordVisible by remember { mutableStateOf(false) }
+        var passwordInput by remember { mutableStateOf("") }
+        OutlinedTextField(
+            value = passwordInput,
+            onValueChange = { newValue -> passwordInput = newValue },
+            label = { Text(text = "Password") },
+            placeholder = { Text(text = "Your password") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            singleLine = true,
+            visualTransformation = if (isPasswordVisible) {
+                VisualTransformation.None
+            } else {
+                PasswordVisualTransformation()
+            },
+            trailingIcon = {
+                val image = if (isPasswordVisible) {
+                    Icons.Filled.Visibility
+                } else {
+                    Icons.Filled.VisibilityOff
+                }
+
+                val description = if (isPasswordVisible) "Hide password" else "Show password"
+
+                IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                    Icon(imageVector = image, contentDescription = description)
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun RegisterButtons(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { /* TODO: Register Logic */ },
+        ) {
+            Text(
+                text = "Create Account",
+                fontSize = Dimens.fontMedium
+            )
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Already have an account?",
+            )
+
+            TextButton(onClick = { /* TODO: Navigate to RegisterScreen */ }
+            ) {
+                Text(
+                    text = "Sign In",
+                    textDecoration = TextDecoration.Underline
+                )
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RegisterScreenPreview() {
+    RegisterScreen()
+}
