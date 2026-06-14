@@ -94,6 +94,7 @@ fun LoginFields(modifier: Modifier = Modifier) {
             onValueChange = { newValue -> emailInput = newValue },
             label = { Text(text = "Email") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            maxLines = 1,
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -102,6 +103,7 @@ fun LoginFields(modifier: Modifier = Modifier) {
             onValueChange = { newValue -> passwordInput = newValue },
             label = { Text(text = "Password") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            maxLines = 1,
             modifier = Modifier.fillMaxWidth()
         )
     }
