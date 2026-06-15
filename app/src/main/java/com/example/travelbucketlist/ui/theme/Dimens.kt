@@ -18,7 +18,7 @@ object Dimens {
 
     // Element Sizes
     val minimumTouchTarget: Dp = 48.dp
-    val buttonHeight: Dp = 56.dp
+    val buttonHeight: Dp = 48.dp
     val cardElevation: Dp = 4.dp
 
     // Typography Font Sizes (Always use SP for text)
@@ -26,4 +26,9 @@ object Dimens {
     val fontMedium: TextUnit = 16.sp
     val fontLarge: TextUnit = 22.sp
     val fontTitle: TextUnit = 32.sp
+
+    // Icons
+    val iconSmall: Dp = 28.dp
+    val iconMedium: Dp = 40.dp
+    val iconLarge: Dp = 56.dp
 }
