@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -56,7 +57,7 @@ fun BucketListTabs(
 ) {
     val tabs = listOf("All", "Pending", "Visited")
 
-    TabRow(
+    PrimaryTabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = modifier
     ) {
