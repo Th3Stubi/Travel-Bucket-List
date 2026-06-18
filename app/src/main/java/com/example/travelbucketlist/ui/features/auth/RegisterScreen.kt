@@ -33,14 +33,25 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.travelbucketlist.ui.theme.Dimens
+import androidx.compose.runtime.LaunchedEffect
 
 /**
  * Displays the register user interface.
  * This screen handles the layout and UI components.
  */
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(
+    viewModel: RegisterViewModel = viewModel(),
+    onRegisterSuccess: () -> Unit
+) {
+    LaunchedEffect(viewModel.isRegistrationSuccessful) {
+        if (viewModel.isRegistrationSuccessful) {
+            onRegisterSuccess()
+        }
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -57,11 +68,22 @@ fun RegisterScreen() {
 
             Spacer(modifier = Modifier.height(Dimens.spacingLarge))
 
-            RegisterFields(modifier = customWidthModifier)
+            RegisterFields(
+                nameValue = viewModel.nameInput,
+                onNameChange = { viewModel.onNameChanged(it) },
+                emailValue = viewModel.emailInput,
+                onEmailChange = { viewModel.onEmailChanged(it) },
+                passwordValue = viewModel.passwordInput,
+                onPasswordChange = { viewModel.onPasswordChanged(it) },
+                modifier = customWidthModifier,
+            )
 
             Spacer(modifier = Modifier.height(Dimens.spacingLarge))
 
-            RegisterButtons(modifier = customWidthModifier)
+            RegisterButtons(
+                onRegisterClick = { viewModel.registerUser() },
+                modifier = customWidthModifier
+            )
         }
     }
 }
@@ -87,18 +109,23 @@ fun RegisterHeader(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RegisterFields(modifier: Modifier = Modifier) {
-    var usernameInput by remember { mutableStateOf("") }
-    var emailInput by remember { mutableStateOf("") }
-
+fun RegisterFields(
+    modifier: Modifier = Modifier,
+    nameValue: String,
+    onNameChange: (String) -> Unit,
+    emailValue: String,
+    onEmailChange: (String) -> Unit,
+    passwordValue: String,
+    onPasswordChange: (String) -> Unit
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
     ) {
         OutlinedTextField(
-            value = usernameInput,
-            onValueChange = { newValue -> usernameInput = newValue },
+            value = nameValue,
+            onValueChange = onNameChange,
             label = { Text(text = "Name") },
             placeholder = { Text(text = "Your name") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -107,8 +134,8 @@ fun RegisterFields(modifier: Modifier = Modifier) {
         )
 
         OutlinedTextField(
-            value = emailInput,
-            onValueChange = { newValue -> emailInput = newValue },
+            value = emailValue,
+            onValueChange = onEmailChange,
             label = { Text(text = "Email") },
             placeholder = { Text(text = "your@email.com") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -117,10 +144,9 @@ fun RegisterFields(modifier: Modifier = Modifier) {
         )
 
         var isPasswordVisible by remember { mutableStateOf(false) }
-        var passwordInput by remember { mutableStateOf("") }
         OutlinedTextField(
-            value = passwordInput,
-            onValueChange = { newValue -> passwordInput = newValue },
+            value = passwordValue,
+            onValueChange = onPasswordChange,
             label = { Text(text = "Password") },
             placeholder = { Text(text = "Your password") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -149,14 +175,17 @@ fun RegisterFields(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RegisterButtons(modifier: Modifier = Modifier) {
+fun RegisterButtons(
+    onRegisterClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { /* TODO: Register Logic */ },
+            onClick = onRegisterClick,
         ) {
             Text(
                 text = "Create Account",
@@ -187,5 +216,5 @@ fun RegisterButtons(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen()
+    RegisterScreen(onRegisterSuccess = {})
 }
