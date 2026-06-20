@@ -24,7 +24,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.features.bucketlist.BucketListScreen
 import com.example.travelbucketlist.ui.theme.Dimens
 
@@ -44,13 +46,13 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Filled.Public,
-                            contentDescription = "App Logo"
+                            contentDescription = stringResource(R.string.main_cd_app_logo)
                         )
 
                         Spacer(modifier = Modifier.width(Dimens.spacingSmall))
 
                         Text(
-                            text = "My Bucket List",
+                            text = stringResource(R.string.main_title),
                         )
                     }
                 },
@@ -58,7 +60,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     IconButton(onClick = { /* TODO: Navigate to SettingsScreen */ }) {
                         Icon(
                             imageVector = Icons.Filled.Settings,
-                            contentDescription = "Open Settings"
+                            contentDescription = stringResource(R.string.main_cd_open_settings)
                         )
                     }
                 },
@@ -74,7 +76,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "Add new location"
+                    contentDescription = stringResource(R.string.main_cd_add_new_location)
                 )
             }
         }

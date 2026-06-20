@@ -36,6 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.travelbucketlist.ui.theme.Dimens
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.res.stringResource
+import com.example.travelbucketlist.R
 
 /**
  * Displays the register user interface.
@@ -95,13 +97,13 @@ fun RegisterHeader(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Create Account",
+            text = stringResource(R.string.register_header_create_account),
             fontSize = Dimens.fontTitle,
             fontWeight = Bold,
             modifier = Modifier.padding(vertical = Dimens.spacingSmall)
         )
         Text(
-            text = "Start your travel journey",
+            text = stringResource(R.string.register_header_start_your_travel_journey),
             fontSize = Dimens.fontMedium,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
         )
@@ -126,8 +128,8 @@ fun RegisterFields(
         OutlinedTextField(
             value = nameValue,
             onValueChange = onNameChange,
-            label = { Text(text = "Name") },
-            placeholder = { Text(text = "Your name") },
+            label = { Text(text = stringResource(R.string.common_name)) },
+            placeholder = { Text(text = stringResource(R.string.register_placeholder_your_name)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -136,8 +138,8 @@ fun RegisterFields(
         OutlinedTextField(
             value = emailValue,
             onValueChange = onEmailChange,
-            label = { Text(text = "Email") },
-            placeholder = { Text(text = "your@email.com") },
+            label = { Text(text = stringResource(R.string.common_email)) },
+            placeholder = { Text(text = stringResource(R.string.register_placeholder_example_mail)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -147,8 +149,8 @@ fun RegisterFields(
         OutlinedTextField(
             value = passwordValue,
             onValueChange = onPasswordChange,
-            label = { Text(text = "Password") },
-            placeholder = { Text(text = "Your password") },
+            label = { Text(text = stringResource(R.string.common_password)) },
+            placeholder = { Text(text = stringResource(R.string.register_placeholder_your_password)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             singleLine = true,
             visualTransformation = if (isPasswordVisible) {
@@ -188,7 +190,7 @@ fun RegisterButtons(
             onClick = onRegisterClick,
         ) {
             Text(
-                text = "Create Account",
+                text = stringResource(R.string.register_button_create_account),
                 fontSize = Dimens.fontMedium
             )
         }
@@ -199,13 +201,13 @@ fun RegisterButtons(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Already have an account?",
+                text = stringResource(R.string.register_info_already_have_an_account),
             )
 
             TextButton(onClick = { /* TODO: Navigate to RegisterScreen */ }
             ) {
                 Text(
-                    text = "Sign In",
+                    text = stringResource(R.string.register_textbutton_sign_in),
                     textDecoration = TextDecoration.Underline
                 )
             }

@@ -22,10 +22,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.theme.Dimens
 
 /**
@@ -66,13 +68,13 @@ fun LoginHeader(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Travel Bucket List",
+            text = stringResource(R.string.app_name),
             fontSize = Dimens.fontTitle,
             fontWeight = Bold,
             modifier = Modifier.padding(vertical = Dimens.spacingSmall)
         )
         Text(
-            text = "Sign in to your account",
+            text = stringResource(R.string.login_sign_in_to_your_account),
             fontSize = Dimens.fontMedium,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
         )
@@ -92,7 +94,7 @@ fun LoginFields(modifier: Modifier = Modifier) {
         OutlinedTextField(
             value = emailInput,
             onValueChange = { newValue -> emailInput = newValue },
-            label = { Text(text = "Email") },
+            label = { Text(text = stringResource(R.string.common_email)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -101,7 +103,7 @@ fun LoginFields(modifier: Modifier = Modifier) {
         OutlinedTextField(
             value = passwordInput,
             onValueChange = { newValue -> passwordInput = newValue },
-            label = { Text(text = "Password") },
+            label = { Text(text = stringResource(R.string.common_password)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -120,7 +122,7 @@ fun LoginButtons(modifier: Modifier = Modifier) {
             onClick = { /* TODO: Login Logic */ },
         ) {
             Text(
-                text = "Sign In",
+                text = stringResource(R.string.login_button_sign_in),
                 fontSize = Dimens.fontMedium
             )
         }
@@ -131,13 +133,13 @@ fun LoginButtons(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "No account?",
+                text = stringResource(R.string.login_info_no_account),
             )
 
             TextButton(onClick = { /* TODO: Navigate to RegisterScreen */ }
             ) {
                 Text(
-                    text = "Register",
+                    text = stringResource(R.string.common_register),
                     textDecoration = TextDecoration.Underline
                 )
             }

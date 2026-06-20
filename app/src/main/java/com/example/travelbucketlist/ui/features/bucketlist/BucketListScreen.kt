@@ -20,8 +20,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.theme.Dimens
 
 /**
@@ -55,7 +57,11 @@ fun BucketListTabs(
     onTabSelected: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val tabs = listOf("All", "Pending", "Visited")
+    val tabs = listOf(
+        stringResource(R.string.bucketlist_tab_all),
+        stringResource(R.string.bucketlist_tab_pending),
+        stringResource(R.string.bucketlist_tab_visited)
+    )
 
     PrimaryTabRow(
         selectedTabIndex = selectedTabIndex,
@@ -76,6 +82,7 @@ fun BucketListContent(
     selectedTabIndex: Int,
     modifier: Modifier = Modifier
 ) {
+    // FIXME: Do not extract strings yet, those are placeholder values
     val currentFilterText = when (selectedTabIndex) {
         0 -> "All Destinations"
         1 -> "Pending Destinations"
@@ -92,6 +99,7 @@ fun BucketListContent(
         // debug list
         items(5) { index ->
             DestinationCard(
+                // FIXME: Do not extract string yet, those are placeholder values
                 title = "City #${index + 1}",
                 country = currentFilterText
             )
@@ -120,6 +128,7 @@ fun DestinationCard(
                 fontWeight = FontWeight.Bold
             )
             Text(
+                // FIXME: Do not extract string yet, those are placeholder values
                 text = "Country: $country",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)

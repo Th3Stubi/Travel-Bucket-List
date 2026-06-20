@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.R
@@ -35,6 +36,7 @@ import com.example.travelbucketlist.ui.theme.Dimens
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
+        // FIXME: Do not extract strings, those are placeholder values
         SettingsProfileCard(profileName = "John Doe", profileEmail = "this@email.com")
 
         Spacer(modifier = Modifier.height(Dimens.spacingLarge))
@@ -58,7 +60,7 @@ fun SettingsProfileCard(
         ) {
             Icon(
                 imageVector = Icons.Filled.AccountCircle,
-                contentDescription = "User Profile Picture",
+                contentDescription = stringResource(com.example.travelbucketlist.R.string.settings_cd_user_profile_picture),
                 modifier = Modifier.size(Dimens.iconLarge),
                 tint = Color.Gray,
             )
@@ -95,12 +97,12 @@ fun SettingsLogoutButton(modifier: Modifier = Modifier) {
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.Logout,
-            contentDescription = "Logout Icon"
+            contentDescription = stringResource(com.example.travelbucketlist.R.string.settings_cd_logout_icon)
         )
 
         Spacer(modifier = Modifier.width(Dimens.spacingSmall))
 
-        Text(text = "Sign Out")
+        Text(text = stringResource(com.example.travelbucketlist.R.string.settings_button_sign_out))
     }
 }
 

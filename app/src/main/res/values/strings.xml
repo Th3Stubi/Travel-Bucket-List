@@ -1,3 +1,42 @@
 <resources>
+    <!--Global Strings-->
     <string name="app_name">Travel Bucket List</string>
+
+    <!--Common Strings-->
+    <string name="common_email">Email</string>
+    <string name="common_password">Password</string>
+    <string name="common_register">Register</string>
+    <string name="common_name">Name</string>
+
+    <!-- Login Screen-->
+    <string name="login_sign_in_to_your_account">Sign in to your account</string>
+    <string name="login_button_sign_in">Sign In</string>
+    <string name="login_info_no_account">No account?</string>
+
+    <!-- Register Screen-->
+    <string name="register_header_create_account">Create Account</string>
+    <string name="register_header_start_your_travel_journey">Start your travel journey</string>
+    <string name="register_placeholder_your_name">Your name</string>
+    <string name="register_placeholder_example_mail">your@email.com</string>
+    <string name="register_placeholder_your_password">Your password</string>
+    <string name="register_button_create_account">Create Account</string>
+    <string name="register_info_already_have_an_account">Already have an account?</string>
+    <string name="register_textbutton_sign_in">Sign In</string>
+
+    <!-- BucketList Screen-->
+    <string name="bucketlist_tab_all">All</string>
+    <string name="bucketlist_tab_pending">Pending</string>
+    <string name="bucketlist_tab_visited">Visited</string>
+
+    <!-- Main Screen-->
+    <string name="main_title">My Bucket List</string>
+    <string name="main_cd_app_logo">App Logo</string>
+    <string name="main_cd_open_settings">Open Settings</string>
+    <string name="main_cd_add_new_location">Add new location</string>
+
+    <!-- Settings Screen-->
+    <string name="settings_cd_user_profile_picture">User Profile Picture</string>
+    <string name="settings_cd_logout_icon">Logout Icon</string>
+    <string name="settings_button_sign_out">Sign Out</string>
+
 </resources>
