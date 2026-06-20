@@ -1,6 +1,6 @@
 <resources>
     <!--Global Strings-->
-    <string name="app_name">Travel Bucket List</string>
+    <string name="app_name" translatable="false">Travel Bucket List</string>
 
     <!--Common Strings-->
     <string name="common_email">Email</string>

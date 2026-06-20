@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_email">E-Mail</string>
+    <string name="common_password">Passwort</string>
+    <string name="common_register">Registrieren</string>
+    <string name="common_name">Name</string>
+    <string name="login_sign_in_to_your_account">Melde dich bei deinem Konto an</string>
+    <string name="login_button_sign_in">Anmelden</string>
+    <string name="login_info_no_account">Noch kein Konto?</string>
+    <string name="register_header_create_account">Konto erstellen</string>
+    <string name="register_header_start_your_travel_journey">Starte dein Reiseabenteuer</string>
+    <string name="register_placeholder_your_name">Dein Name</string>
+    <string name="register_placeholder_example_mail">deine@email.com</string>
+    <string name="register_placeholder_your_password">Dein Passwort</string>
+    <string name="register_button_create_account">Konto erstellen</string>
+    <string name="register_info_already_have_an_account">Du hast bereits ein Konto?</string>
+    <string name="register_textbutton_sign_in">Anmelden</string>
+    <string name="bucketlist_tab_all">Alle</string>
+    <string name="bucketlist_tab_pending">Ausstehend</string>
+    <string name="bucketlist_tab_visited">Besucht</string>
+    <string name="main_title">Meine Bucket List</string>
+    <string name="main_cd_app_logo">App Logo</string>
+    <string name="main_cd_open_settings">Öffne Einstellungen</string>
+    <string name="main_cd_add_new_location">Neuen Ort hinzufügen</string>
+    <string name="settings_cd_user_profile_picture">Benutzerprofilbild</string>
+    <string name="settings_cd_logout_icon">Abmelde Symbol</string>
+    <string name="settings_button_sign_out">Abmelden</string>
+</resources>
