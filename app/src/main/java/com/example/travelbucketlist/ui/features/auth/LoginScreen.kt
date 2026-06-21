@@ -16,6 +16,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.theme.Dimens
 
@@ -35,12 +37,21 @@ import com.example.travelbucketlist.ui.theme.Dimens
  * This screen handles the layout and UI components.
  */
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onLoginSuccess: () -> Unit,
+    onNavigateToRegister: () -> Unit,
+    viewModel: LoginViewModel = viewModel()
+) {
+    LaunchedEffect(viewModel.isLoginSuccessful) {
+        if (viewModel.isLoginSuccessful) {
+            onLoginSuccess()
+        }
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        // Main container for the login UI
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -52,11 +63,21 @@ fun LoginScreen() {
 
             Spacer(modifier = Modifier.height(Dimens.spacingLarge))
 
-            LoginFields(modifier = customWidthModifier)
+            LoginFields(
+                emailValue = viewModel.emailInput,
+                onEmailChange = { viewModel.onEmailChanged(it) },
+                passwordValue = viewModel.passwordInput,
+                onPasswordChange = { viewModel.onPasswordChanged(it) },
+                modifier = customWidthModifier
+            )
 
             Spacer(modifier = Modifier.height(Dimens.spacingLarge))
 
-            LoginButtons(modifier = customWidthModifier)
+            LoginButtons(
+                onLoginClick = { viewModel.loginUser() },
+                onNavigateToRegister = onNavigateToRegister,
+                modifier = customWidthModifier
+            )
         }
     }
 }
@@ -82,18 +103,21 @@ fun LoginHeader(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LoginFields(modifier: Modifier = Modifier) {
-    var emailInput by remember { mutableStateOf("") }
-    var passwordInput by remember { mutableStateOf("") }
-
+fun LoginFields(
+    emailValue: String,
+    onEmailChange: (String) -> Unit,
+    passwordValue: String,
+    onPasswordChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
     ) {
         OutlinedTextField(
-            value = emailInput,
-            onValueChange = { newValue -> emailInput = newValue },
+            value = emailValue,
+            onValueChange = onEmailChange,
             label = { Text(text = stringResource(R.string.common_email)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             singleLine = true,
@@ -101,8 +125,8 @@ fun LoginFields(modifier: Modifier = Modifier) {
         )
 
         OutlinedTextField(
-            value = passwordInput,
-            onValueChange = { newValue -> passwordInput = newValue },
+            value = passwordValue,
+            onValueChange = onPasswordChange,
             label = { Text(text = stringResource(R.string.common_password)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             singleLine = true,
@@ -112,14 +136,18 @@ fun LoginFields(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LoginButtons(modifier: Modifier = Modifier) {
+fun LoginButtons(
+    onLoginClick: () -> Unit,
+    onNavigateToRegister: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { /* TODO: Login Logic */ },
+            onClick = onLoginClick,
         ) {
             Text(
                 text = stringResource(R.string.login_button_sign_in),
@@ -136,8 +164,8 @@ fun LoginButtons(modifier: Modifier = Modifier) {
                 text = stringResource(R.string.login_info_no_account),
             )
 
-            TextButton(onClick = { /* TODO: Navigate to RegisterScreen */ }
-            ) {
+            TextButton(onClick = onNavigateToRegister)
+            {
                 Text(
                     text = stringResource(R.string.common_register),
                     textDecoration = TextDecoration.Underline
@@ -150,5 +178,5 @@ fun LoginButtons(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(onLoginSuccess = {}, onNavigateToRegister = {})
 }

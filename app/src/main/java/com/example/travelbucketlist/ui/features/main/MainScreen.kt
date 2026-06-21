@@ -36,7 +36,9 @@ import com.example.travelbucketlist.ui.theme.Dimens
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(
+    onSettingsClick: () -> Unit,
+    modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
 
@@ -57,7 +59,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* TODO: Navigate to SettingsScreen */ }) {
+                    IconButton(onClick = onSettingsClick) {
                         Icon(
                             imageVector = Icons.Filled.Settings,
                             contentDescription = stringResource(R.string.main_cd_open_settings)
@@ -95,5 +97,5 @@ fun MainScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    MainScreen()
+        MainScreen(onSettingsClick = {})
 }

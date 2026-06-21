@@ -25,4 +25,8 @@
     <string name="settings_cd_user_profile_picture">Benutzerprofilbild</string>
     <string name="settings_cd_logout_icon">Abmelde Symbol</string>
     <string name="settings_button_sign_out">Abmelden</string>
+    <string name="settings_button_reset_password">Passwort zurücksetzen</string>
+    <string name="settings_cd_reset_password_icon">Passwort zurücksetzen Symbol</string>
+    <string name="settings_cd_back_button">Zurück</string>
+    <string name="settings_title">Einstellungen</string>
 </resources>

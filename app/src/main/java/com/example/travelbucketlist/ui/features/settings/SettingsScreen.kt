@@ -1,5 +1,6 @@
 package com.example.travelbucketlist.ui.features.settings
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ButtonDefaults
@@ -24,24 +26,90 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.R
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.travelbucketlist.ui.theme.Dimens
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.IconButton
 
 /**
  * The settings screen.
  */
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
+fun SettingsScreen(
+    onLogout: () -> Unit,
+    onBackClick: () -> Unit,
+    viewModel: SettingsViewModel = viewModel(),
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+
     Column(modifier = modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimens.spacingLarge, start = Dimens.spacingSmall),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+        IconButton(onClick = onBackClick) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(com.example.travelbucketlist.R.string.settings_cd_back_button)
+            )
+        }
+            Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+
+            Text(
+                text = stringResource(com.example.travelbucketlist.R.string.settings_title),
+                fontSize = Dimens.fontTitle
+            )
+        }
+
         // FIXME: Do not extract strings, those are placeholder values
-        SettingsProfileCard(profileName = "John Doe", profileEmail = "this@email.com")
+        SettingsProfileCard(
+            profileName = "John Doe",
+            profileEmail = viewModel.currentUserEmail ?: "this@email.com"
+        )
 
         Spacer(modifier = Modifier.height(Dimens.spacingLarge))
 
-        SettingsLogoutButton()
+        SettingsResetPasswordButton(onClick = {
+            viewModel.resetPassword { success ->
+                val message = if (success) "E-Mail wurde gesendet" else "Fehler beim Senden"
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        Spacer(modifier = Modifier.height(Dimens.spacingMedium))
+
+        SettingsLogoutButton(onClick = {
+            viewModel.logout()
+            onLogout()
+        })
+    }
+}
+
+@Composable
+fun SettingsResetPasswordButton(onClick: () -> Unit,
+                                modifier: Modifier = Modifier
+) {
+    OutlinedButton(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(Dimens.buttonHeight),
+        onClick = onClick,
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Lock,
+            contentDescription = stringResource(com.example.travelbucketlist.R.string.settings_cd_reset_password_icon)
+        )
+
+        Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+
+        Text(text = stringResource(com.example.travelbucketlist.R.string.settings_button_reset_password))
     }
 }
 
@@ -84,13 +152,15 @@ fun SettingsProfileCard(
 }
 
 @Composable
-fun SettingsLogoutButton(modifier: Modifier = Modifier) {
+fun SettingsLogoutButton( onClick: () -> Unit,
+modifier: Modifier = Modifier
+) {
     OutlinedButton(
         modifier = modifier
             .fillMaxWidth()
             .height(Dimens.buttonHeight),
         border = BorderStroke(0.5.dp, Color.Red),
-        onClick = { /* TODO: Logout Logic*/ },
+        onClick = onClick,
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = Color.Red,
         ),
@@ -109,5 +179,5 @@ fun SettingsLogoutButton(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreenPreview() {
-    SettingsScreen()
+    SettingsScreen(onLogout = {}, onBackClick = {})
 }

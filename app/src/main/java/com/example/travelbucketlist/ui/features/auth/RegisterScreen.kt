@@ -46,7 +46,8 @@ import com.example.travelbucketlist.R
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel = viewModel(),
-    onRegisterSuccess: () -> Unit
+    onRegisterSuccess: () -> Unit,
+    onNavigateToLogin: () -> Unit
 ) {
     LaunchedEffect(viewModel.isRegistrationSuccessful) {
         if (viewModel.isRegistrationSuccessful) {
@@ -84,7 +85,9 @@ fun RegisterScreen(
 
             RegisterButtons(
                 onRegisterClick = { viewModel.registerUser() },
-                modifier = customWidthModifier
+                onNavigateToLogin = onNavigateToLogin,
+                modifier = customWidthModifier,
+
             )
         }
     }
@@ -179,6 +182,7 @@ fun RegisterFields(
 @Composable
 fun RegisterButtons(
     onRegisterClick: () -> Unit,
+    onNavigateToLogin: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -200,12 +204,9 @@ fun RegisterButtons(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = stringResource(R.string.register_info_already_have_an_account),
-            )
+            Text(text = stringResource(R.string.register_info_already_have_an_account))
 
-            TextButton(onClick = { /* TODO: Navigate to RegisterScreen */ }
-            ) {
+            TextButton(onClick = onNavigateToLogin) {
                 Text(
                     text = stringResource(R.string.register_textbutton_sign_in),
                     textDecoration = TextDecoration.Underline
@@ -218,5 +219,5 @@ fun RegisterButtons(
 @Preview(showBackground = true)
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen(onRegisterSuccess = {})
+    RegisterScreen(onRegisterSuccess = {}, onNavigateToLogin = {})
 }

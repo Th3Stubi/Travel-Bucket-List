@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.travelbucketlist.ui.features.auth.LoginScreen
 import com.example.travelbucketlist.ui.features.auth.RegisterScreen
 import com.example.travelbucketlist.ui.features.main.MainScreen
+import com.example.travelbucketlist.ui.features.settings.SettingsScreen
 
 /**
  * The central navigation graph of the application.
@@ -21,7 +22,14 @@ fun AppNavigation() {
         startDestination = "register"
     ) {
         composable(route = "login") {
-            LoginScreen()
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate("main") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                },
+                onNavigateToRegister = { navController.navigate("register") }
+            )
         }
 
         composable(route = "register") {
@@ -30,12 +38,30 @@ fun AppNavigation() {
                     navController.navigate("main") {
                         popUpTo("register") { inclusive = true }
                     }
-                }
+                },
+                onNavigateToLogin = { navController.navigate("login") }
             )
         }
 
         composable(route = "main") {
-            MainScreen()
+            MainScreen(
+                onSettingsClick = { navController.navigate("settings") }
+            )
+        }
+
+        composable(route = "settings") {
+            SettingsScreen(
+                onLogout = {
+                    navController.navigate("login") {
+                        popUpTo(0) { inclusive = true }
+                    }
+                },
+                onBackClick = {
+                    navController.navigate("main") {
+                        popUpTo("settings") { inclusive = true }
+                    }
+                }
+            )
         }
     }
 }
