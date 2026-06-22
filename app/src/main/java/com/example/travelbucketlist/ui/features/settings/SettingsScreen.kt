@@ -41,6 +41,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.example.travelbucketlist.R
 
 /**
  * The settings screen.
@@ -76,17 +77,19 @@ fun SettingsScreen(
             )
         }
 
-        // FIXME: Do not extract strings, those are placeholder values
         SettingsProfileCard(
-            profileName = "John Doe",
-            profileEmail = viewModel.currentUserEmail ?: "this@email.com"
+            profileEmail = viewModel.currentUserEmail ?: "your@email.com"
         )
 
         Spacer(modifier = Modifier.height(Dimens.spacingLarge))
 
+        // Strings used for reset password toast message
+        val resetSuccessMessage = stringResource(R.string.settings_reset_email_success)
+        val resetErrorMessage = stringResource(R.string.settings_reset_email_error)
+
         SettingsResetPasswordButton(onClick = {
             viewModel.resetPassword { success ->
-                val message = if (success) "Email sent" else "Error while sending"
+                val message = if (success) resetSuccessMessage else resetErrorMessage
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
         })
@@ -102,9 +105,11 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(Dimens.spacingMedium))
 
         // Translator with the help of Claude coz Debugging
-        var isGerman by remember { mutableStateOf(
-            context.resources.configuration.locales[0].language == "de"
-        ) }
+        var isGerman by remember {
+            mutableStateOf(
+                context.resources.configuration.locales[0].language == "de"
+            )
+        }
 
         OutlinedButton(
             onClick = {
@@ -118,7 +123,7 @@ fun SettingsScreen(
         ) {
             Icon(
                 imageVector = Icons.Filled.Language,
-                contentDescription = "Sprache wechseln"
+                contentDescription = stringResource(R.string.settings_cd_change_language_icon)
             )
             Spacer(modifier = Modifier.width(Dimens.spacingSmall))
             Text(text = if (isGerman) "Switch to English" else "Zu Deutsch wechseln")
@@ -155,7 +160,6 @@ fun SettingsResetPasswordButton(
 
 @Composable
 fun SettingsProfileCard(
-    profileName: String,
     profileEmail: String,
     modifier: Modifier = Modifier
 ) {
@@ -177,10 +181,6 @@ fun SettingsProfileCard(
                 modifier = Modifier,
                 verticalArrangement = Arrangement.spacedBy(Dimens.spacingSmall)
             ) {
-                Text(
-                    text = profileName,
-                    fontSize = Dimens.fontMedium
-                )
                 Text(
                     text = profileEmail,
                     fontSize = Dimens.fontMedium,

@@ -167,7 +167,7 @@ fun DestinationCard(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = stringResource(R.string.bucketlist_info_country) + ": " + country,
+                    text = stringResource(R.string.common_text_country) + ": " + country,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                 )
@@ -175,7 +175,7 @@ fun DestinationCard(
             IconButton(onClick = onDelete) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
-                    contentDescription = "Löschen",
+                    contentDescription = stringResource(R.string.bucketlist_cd_delete_icon),
                     tint = Color.Red
                 )
             }

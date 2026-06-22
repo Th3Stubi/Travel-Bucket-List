@@ -45,7 +45,8 @@
     <string name="settings_cd_reset_password_icon">Reset Password Icon</string>
     <string name="settings_cd_back_button">Back</string>
     <string name="settings_title">Settings</string>
-    <string name="bucketlist_info_country">Country</string>
+    <string name="settings_reset_email_success">Email sent</string>
+    <string name="settings_reset_email_error">Error while sending</string>
 
     <!-- AddLocation Screen-->
     <string name="addlocation_button_add_location">Add location</string>
@@ -54,5 +55,7 @@
     <string name="addlocation_button_chose_other_image">Choose other image</string>
     <string name="addlocation_button_choose_image">Choose image</string>
     <string name="addlocation_button_save">Save</string>
+    <string name="bucketlist_cd_delete_icon">Delete Icon</string>
+    <string name="settings_cd_change_language_icon">Change Language</string>
 
 </resources>
