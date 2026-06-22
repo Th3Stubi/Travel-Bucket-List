@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "671197645725",
+    "project_id": "travel-bucket-list-b6df4",
+    "storage_bucket": "travel-bucket-list-b6df4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671197645725:android:75c9e2b5d64dddb5cfbd74",
+        "android_client_info": {
+          "package_name": "com.example.travelbucketlist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrhQWuxbQaP9JzG2hf0LZI_cqjgfv6IF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
