@@ -88,6 +88,7 @@ fun AddLocationScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(Dimens.spacingMedium)
+            .padding(top = Dimens.spacingLarge)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBackClick) {

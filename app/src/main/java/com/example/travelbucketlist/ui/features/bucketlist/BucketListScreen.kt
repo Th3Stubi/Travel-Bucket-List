@@ -39,6 +39,11 @@ import coil.compose.AsyncImage
 import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.theme.Dimens
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.ui.graphics.Color
 
 /**
  * The main screen for displaying the user's travel bucket list.
@@ -50,22 +55,14 @@ fun BucketListScreen(
     onDestinationClick: (Destination) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // States: 0 = All, 1 = Pending, 2 = Visited
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
-
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        BucketListTabs(
-            selectedTabIndex = selectedTabIndex,
-            onTabSelected = { newIndex -> selectedTabIndex = newIndex },
-            modifier = Modifier.fillMaxWidth()
-        )
-
         BucketListContent(
             destinations = viewModel.destinations,
             modifier = Modifier.fillMaxSize(),
             onDestinationClick = onDestinationClick,
+            onDestinationDelete = { viewModel.removeDestination(it) },
         )
     }
 }
@@ -100,6 +97,7 @@ fun BucketListTabs(
 fun BucketListContent(
     destinations: List<Destination>,
     onDestinationClick: (Destination) -> Unit,
+    onDestinationDelete: (Destination) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (destinations.isEmpty()) {
@@ -119,7 +117,8 @@ fun BucketListContent(
                 title = destination.name,
                 country = destination.country,
                 imageUri = destination.imageUri,
-                onClick = { onDestinationClick(destination) }
+                onClick = { onDestinationClick(destination) },
+                onDelete = { onDestinationDelete(destination) }
             )
         }
     }
@@ -131,6 +130,7 @@ fun DestinationCard(
     country: String,
     imageUri: Uri?,
     onClick: () -> Unit,
+    onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -142,7 +142,9 @@ fun DestinationCard(
         )
     ) {
         Row(
-            modifier = Modifier.padding(Dimens.spacingMedium),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Dimens.spacingMedium),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (imageUri != null) {
@@ -157,7 +159,7 @@ fun DestinationCard(
                 Spacer(modifier = Modifier.width(Dimens.spacingMedium))
             }
             Column(
-                modifier = Modifier.padding(Dimens.spacingMedium)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = title,
@@ -168,6 +170,13 @@ fun DestinationCard(
                     text = stringResource(R.string.bucketlist_info_country) + ": " + country,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                )
+            }
+            IconButton(onClick = onDelete) {
+                Icon(
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = "Löschen",
+                    tint = Color.Red
                 )
             }
         }

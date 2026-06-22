@@ -70,13 +70,12 @@ fun AppNavigation() {
             )
         }
         composable(route = "detail") {
+            val context = androidx.compose.ui.platform.LocalContext.current
             DestinationDetailScreen(
                 viewModel = bucketListViewModel,
                 onBackClick = {
-                    android.util.Log.d("Navigation", "detail back clicked")
-                    navController.navigate("main") {
-                        popUpTo("detail") { inclusive = true }
-                    }
+                    android.widget.Toast.makeText(context, "BACK CLICKED", android.widget.Toast.LENGTH_SHORT).show()
+                    navController.popBackStack("main", inclusive = false)
                 }
             )
         }

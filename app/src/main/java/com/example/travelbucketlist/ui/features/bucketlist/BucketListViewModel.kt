@@ -21,4 +21,7 @@ class BucketListViewModel : ViewModel() {
     fun selectDestination(destination: Destination) {
         selectedDestination = destination
     }
+    fun removeDestination(destination: Destination) {
+        destinations.remove(destination)
+    }
 }
