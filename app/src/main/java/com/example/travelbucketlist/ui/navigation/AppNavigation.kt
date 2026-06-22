@@ -1,11 +1,15 @@
 package com.example.travelbucketlist.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.travelbucketlist.ui.features.auth.LoginScreen
 import com.example.travelbucketlist.ui.features.auth.RegisterScreen
+import com.example.travelbucketlist.ui.features.bucketlist.AddLocationScreen
+import com.example.travelbucketlist.ui.features.bucketlist.BucketListViewModel
+import com.example.travelbucketlist.ui.features.bucketlist.DestinationDetailScreen
 import com.example.travelbucketlist.ui.features.main.MainScreen
 import com.example.travelbucketlist.ui.features.settings.SettingsScreen
 
@@ -16,6 +20,7 @@ import com.example.travelbucketlist.ui.features.settings.SettingsScreen
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val bucketListViewModel: BucketListViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -45,7 +50,34 @@ fun AppNavigation() {
 
         composable(route = "main") {
             MainScreen(
-                onSettingsClick = { navController.navigate("settings") }
+                onSettingsClick = { navController.navigate("settings") },
+                onAddLocationClick = { navController.navigate("addLocation") },
+                onDestinationClick = { destination ->
+                    bucketListViewModel.selectDestination(destination)
+                    navController.navigate("detail")},
+                viewModel = bucketListViewModel
+            )
+        }
+
+        composable(route = "addLocation") {
+            AddLocationScreen(
+                viewModel = bucketListViewModel,
+                onBackClick = {
+                    navController.navigate("main") {
+                        popUpTo("addLocation") { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable(route = "detail") {
+            DestinationDetailScreen(
+                viewModel = bucketListViewModel,
+                onBackClick = {
+                    android.util.Log.d("Navigation", "detail back clicked")
+                    navController.navigate("main") {
+                        popUpTo("detail") { inclusive = true }
+                    }
+                }
             )
         }
 

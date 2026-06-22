@@ -1,5 +1,6 @@
 package com.example.travelbucketlist.ui.features.main
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.features.bucketlist.BucketListScreen
+import com.example.travelbucketlist.ui.features.bucketlist.BucketListViewModel
+import com.example.travelbucketlist.ui.features.bucketlist.Destination
 import com.example.travelbucketlist.ui.theme.Dimens
 
 /**
@@ -38,6 +41,9 @@ import com.example.travelbucketlist.ui.theme.Dimens
 @Composable
 fun MainScreen(
     onSettingsClick: () -> Unit,
+    onAddLocationClick: () -> Unit,
+    onDestinationClick: (Destination) -> Unit,
+    viewModel: BucketListViewModel,
     modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -71,7 +77,7 @@ fun MainScreen(
 
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* TODO: Navigate to AddLocationScreen */ },
+                onClick = onAddLocationClick,
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
@@ -89,13 +95,20 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            BucketListScreen()
+            BucketListScreen(
+                viewModel = viewModel,
+                onDestinationClick = onDestinationClick
+            )
         }
     }
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-        MainScreen(onSettingsClick = {})
+        MainScreen(onSettingsClick = {},
+            onAddLocationClick = {},
+            onDestinationClick = {},
+            viewModel = BucketListViewModel())
 }

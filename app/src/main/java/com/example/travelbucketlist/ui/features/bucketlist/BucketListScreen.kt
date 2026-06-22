@@ -1,12 +1,21 @@
 package com.example.travelbucketlist.ui.features.bucketlist
 
+import android.annotation.SuppressLint
+import android.net.Uri
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -19,19 +28,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.AsyncImage
 import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.theme.Dimens
+import androidx.compose.foundation.lazy.items
 
 /**
  * The main screen for displaying the user's travel bucket list.
  * It handles the tab state and displays the corresponding list.
  */
 @Composable
-fun BucketListScreen(modifier: Modifier = Modifier) {
+fun BucketListScreen(viewModel: BucketListViewModel,
+                     onDestinationClick: (Destination) -> Unit,
+                     modifier: Modifier = Modifier) {
     // States: 0 = All, 1 = Pending, 2 = Visited
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
@@ -45,8 +61,9 @@ fun BucketListScreen(modifier: Modifier = Modifier) {
         )
 
         BucketListContent(
-            selectedTabIndex = selectedTabIndex,
-            modifier = Modifier.fillMaxSize()
+            destinations = viewModel.destinations,
+            modifier = Modifier.fillMaxSize(),
+            onDestinationClick = onDestinationClick,
         )
     }
 }
@@ -79,29 +96,28 @@ fun BucketListTabs(
 
 @Composable
 fun BucketListContent(
-    selectedTabIndex: Int,
+    destinations: List<Destination>,
+    onDestinationClick: (Destination) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // FIXME: Do not extract strings yet, those are placeholder values
-    val currentFilterText = when (selectedTabIndex) {
-        0 -> "All Destinations"
-        1 -> "Pending Destinations"
-        2 -> "Visited Destinations"
-        else -> "Unknown"
+    if (destinations.isEmpty()) {
+        Box(modifier = modifier, contentAlignment = Alignment.Center) {
+            Text(text = "Noch keine Orte hinzugefügt.")
+        }
+        return
     }
 
-    // for scrollable lists
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(Dimens.spacingMedium),
         verticalArrangement = Arrangement.spacedBy(Dimens.spacingMedium)
     ) {
-        // debug list
-        items(5) { index ->
+        items(destinations) { destination ->
             DestinationCard(
-                // FIXME: Do not extract string yet, those are placeholder values
-                title = "City #${index + 1}",
-                country = currentFilterText
+                title = destination.name,
+                country = destination.country,
+                imageUri = destination.imageUri,
+                onClick = { onDestinationClick(destination) }
             )
         }
     }
@@ -111,34 +127,53 @@ fun BucketListContent(
 fun DestinationCard(
     title: String,
     country: String,
+    imageUri: Uri?,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
-        Column(
-            modifier = Modifier.padding(Dimens.spacingMedium)
+        Row(
+            modifier = Modifier.padding(Dimens.spacingMedium),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                // FIXME: Do not extract string yet, those are placeholder values
-                text = "Country: $country",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
-            )
+            if (imageUri != null) {
+                AsyncImage(
+                    model = imageUri,
+                    contentDescription = title,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(Dimens.iconLarge)
+                        .clip(RoundedCornerShape(Dimens.spacingSmall))
+                )
+                Spacer(modifier = Modifier.width(Dimens.spacingMedium))
+            }
+            Column(
+                modifier = Modifier.padding(Dimens.spacingMedium)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    // FIXME: Do not extract string yet, those are placeholder values
+                    text = "Country: $country",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                )
+            }
         }
     }
 }
 
+@SuppressLint("ViewModelConstructorInComposable")
 @Preview(showBackground = true)
 @Composable
 fun BucketListScreenPreview() {
-    BucketListScreen()
+    BucketListScreen(viewModel = BucketListViewModel(),onDestinationClick = {})
 }
