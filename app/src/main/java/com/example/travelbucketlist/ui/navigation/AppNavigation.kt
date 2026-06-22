@@ -12,6 +12,7 @@ import com.example.travelbucketlist.ui.features.bucketlist.BucketListViewModel
 import com.example.travelbucketlist.ui.features.bucketlist.DestinationDetailScreen
 import com.example.travelbucketlist.ui.features.main.MainScreen
 import com.example.travelbucketlist.ui.features.settings.SettingsScreen
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * The central navigation graph of the application.
@@ -22,9 +23,14 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val bucketListViewModel: BucketListViewModel = viewModel()
 
+    val currentUser = FirebaseAuth.getInstance().currentUser
+
+    val initialRoute = if (currentUser != null) "main" else "register"
+
     NavHost(
         navController = navController,
-        startDestination = "register"
+        startDestination = initialRoute
+
     ) {
         composable(route = "login") {
             LoginScreen(

@@ -87,12 +87,15 @@ fun SettingsScreen(
         val resetSuccessMessage = stringResource(R.string.settings_reset_email_success)
         val resetErrorMessage = stringResource(R.string.settings_reset_email_error)
 
-        SettingsResetPasswordButton(onClick = {
-            viewModel.resetPassword { success ->
-                val message = if (success) resetSuccessMessage else resetErrorMessage
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-            }
-        })
+        SettingsResetPasswordButton(
+            onClick = {
+                viewModel.resetPassword { success ->
+                    val message = if (success) resetSuccessMessage else resetErrorMessage
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            },
+            modifier = Modifier.padding(horizontal = Dimens.spacingMedium)
+        )
 
         Spacer(modifier = Modifier.height(Dimens.spacingMedium))
 
@@ -102,6 +105,7 @@ fun SettingsScreen(
         } else {
             "Switch to English"
         }
+
         Spacer(modifier = Modifier.height(Dimens.spacingMedium))
 
         // Translator with the help of Claude coz Debugging
@@ -126,13 +130,19 @@ fun SettingsScreen(
                 contentDescription = stringResource(R.string.settings_cd_change_language_icon)
             )
             Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+
             Text(text = if (isGerman) "Switch to English" else "Zu Deutsch wechseln")
         }
 
-        SettingsLogoutButton(onClick = {
-            viewModel.logout()
-            onLogout()
-        })
+        Spacer(modifier = Modifier.height(Dimens.spacingLarge))
+
+        SettingsLogoutButton(
+            onClick = {
+                viewModel.logout()
+                onLogout()
+            },
+            modifier = Modifier.padding(horizontal = Dimens.spacingMedium)
+        )
     }
 }
 
