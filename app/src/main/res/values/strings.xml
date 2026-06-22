@@ -7,6 +7,8 @@
     <string name="common_password">Password</string>
     <string name="common_register">Register</string>
     <string name="common_name">Name</string>
+    <string name="common_cd_goback_icon">Go Back Icon</string>
+    <string name="common_text_country">Country</string>
 
     <!-- Login Screen-->
     <string name="login_sign_in_to_your_account">Sign in to your account</string>
@@ -27,6 +29,7 @@
     <string name="bucketlist_tab_all">All</string>
     <string name="bucketlist_tab_pending">Pending</string>
     <string name="bucketlist_tab_visited">Visited</string>
+    <string name="bucketlist_info_no_locations_added_yet">No locations added yet.</string>
 
     <!-- Main Screen-->
     <string name="main_title">My Bucket List</string>
@@ -42,6 +45,14 @@
     <string name="settings_cd_reset_password_icon">Reset Password Icon</string>
     <string name="settings_cd_back_button">Back</string>
     <string name="settings_title">Settings</string>
+    <string name="bucketlist_info_country">Country</string>
 
+    <!-- AddLocation Screen-->
+    <string name="addlocation_button_add_location">Add location</string>
+    <string name="addlocation_otf_name">Name</string>
+    <string name="addlocation_image_cd_chosen_image">Chosen Image</string>
+    <string name="addlocation_button_chose_other_image">Choose other image</string>
+    <string name="addlocation_button_choose_image">Choose image</string>
+    <string name="addlocation_button_save">Save</string>
 
 </resources>

@@ -33,9 +33,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
+import com.example.travelbucketlist.R
 import com.example.travelbucketlist.ui.theme.Dimens
 
 @Composable
@@ -91,11 +93,11 @@ fun AddLocationScreen(
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Zurück"
+                    contentDescription = stringResource(R.string.common_cd_goback_icon)
                 )
             }
             Spacer(modifier = Modifier.width(Dimens.spacingSmall))
-            Text(text = "Ort hinzufügen")
+            Text(text = stringResource(R.string.addlocation_button_add_location))
         }
 
         Spacer(modifier = Modifier.height(Dimens.spacingLarge))
@@ -103,7 +105,7 @@ fun AddLocationScreen(
         OutlinedTextField(
             value = nameInput,
             onValueChange = { nameInput = it },
-            label = { Text("Name") },
+            label = { Text(stringResource(R.string.addlocation_otf_name)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -112,7 +114,7 @@ fun AddLocationScreen(
         OutlinedTextField(
             value = countryInput,
             onValueChange = { countryInput = it },
-            label = { Text("Land") },
+            label = { Text(stringResource(R.string.common_text_country)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -121,7 +123,7 @@ fun AddLocationScreen(
         if (selectedImageUri != null) {
             AsyncImage(
                 model = selectedImageUri,
-                contentDescription = "Ausgewähltes Bild",
+                contentDescription = stringResource(R.string.addlocation_image_cd_chosen_image),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -135,7 +137,11 @@ fun AddLocationScreen(
             onClick = { openGallery() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(if (selectedImageUri != null) "Anderes Bild wählen" else "Bild auswählen")
+            Text(
+                if (selectedImageUri != null) stringResource(R.string.addlocation_button_chose_other_image) else stringResource(
+                    R.string.addlocation_button_choose_image
+                )
+            )
         }
 
         Spacer(modifier = Modifier.height(Dimens.spacingLarge))
@@ -149,7 +155,7 @@ fun AddLocationScreen(
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Speichern")
+            Text(stringResource(R.string.addlocation_button_save))
         }
     }
 }

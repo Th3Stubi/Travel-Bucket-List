@@ -29,4 +29,14 @@
     <string name="settings_cd_reset_password_icon">Passwort zurücksetzen Symbol</string>
     <string name="settings_cd_back_button">Zurück</string>
     <string name="settings_title">Einstellungen</string>
+    <string name="common_cd_goback_icon">Gehe Zurück Symbol</string>
+    <string name="addlocation_button_add_location">Ort hinzufügen</string>
+    <string name="addlocation_otf_name">Name</string>
+    <string name="common_text_country">Land</string>
+    <string name="addlocation_image_cd_chosen_image">Ausgewähltes Bild</string>
+    <string name="addlocation_button_chose_other_image">Anderes Bild wählen</string>
+    <string name="addlocation_button_choose_image">Bild auswählen</string>
+    <string name="addlocation_button_save">Speichern</string>
+    <string name="bucketlist_info_no_locations_added_yet">Noch keine Orte hinzugefügt.</string>
+    <string name="bucketlist_info_country">Land</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.travelbucketlist.ui.features.bucketlist
 
+import androidx.browser.R
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.travelbucketlist.ui.theme.Dimens
@@ -40,7 +42,7 @@ fun DestinationDetailScreen(
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Zurück"
+                    contentDescription = stringResource(com.example.travelbucketlist.R.string.common_cd_goback_icon)
                 )
             }
         }
@@ -64,7 +66,7 @@ fun DestinationDetailScreen(
             Text(text = destination.name, fontSize = Dimens.fontTitle)
             Spacer(modifier = Modifier.height(Dimens.spacingSmall))
             Text(
-                text = "Land: ${destination.country}",
+                text = stringResource(com.example.travelbucketlist.R.string.common_text_country) + ": " + destination.country,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

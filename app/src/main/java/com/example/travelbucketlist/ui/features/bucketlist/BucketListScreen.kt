@@ -45,9 +45,11 @@ import androidx.compose.foundation.lazy.items
  * It handles the tab state and displays the corresponding list.
  */
 @Composable
-fun BucketListScreen(viewModel: BucketListViewModel,
-                     onDestinationClick: (Destination) -> Unit,
-                     modifier: Modifier = Modifier) {
+fun BucketListScreen(
+    viewModel: BucketListViewModel,
+    onDestinationClick: (Destination) -> Unit,
+    modifier: Modifier = Modifier
+) {
     // States: 0 = All, 1 = Pending, 2 = Visited
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
@@ -102,7 +104,7 @@ fun BucketListContent(
 ) {
     if (destinations.isEmpty()) {
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
-            Text(text = "Noch keine Orte hinzugefügt.")
+            Text(text = stringResource(R.string.bucketlist_info_no_locations_added_yet))
         }
         return
     }
@@ -132,7 +134,9 @@ fun DestinationCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.fillMaxWidth().clickable(onClick = onClick),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
@@ -161,8 +165,7 @@ fun DestinationCard(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    // FIXME: Do not extract string yet, those are placeholder values
-                    text = "Country: $country",
+                    text = stringResource(R.string.bucketlist_info_country) + ": " + country,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                 )
@@ -175,5 +178,5 @@ fun DestinationCard(
 @Preview(showBackground = true)
 @Composable
 fun BucketListScreenPreview() {
-    BucketListScreen(viewModel = BucketListViewModel(),onDestinationClick = {})
+    BucketListScreen(viewModel = BucketListViewModel(), onDestinationClick = {})
 }

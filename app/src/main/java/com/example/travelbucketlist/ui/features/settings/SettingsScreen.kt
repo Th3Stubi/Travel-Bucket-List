@@ -54,12 +54,12 @@ fun SettingsScreen(
                 .padding(top = Dimens.spacingLarge, start = Dimens.spacingSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
-        IconButton(onClick = onBackClick) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = stringResource(com.example.travelbucketlist.R.string.settings_cd_back_button)
-            )
-        }
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = stringResource(com.example.travelbucketlist.R.string.settings_cd_back_button)
+                )
+            }
             Spacer(modifier = Modifier.width(Dimens.spacingSmall))
 
             Text(
@@ -78,7 +78,7 @@ fun SettingsScreen(
 
         SettingsResetPasswordButton(onClick = {
             viewModel.resetPassword { success ->
-                val message = if (success) "E-Mail wurde gesendet" else "Fehler beim Senden"
+                val message = if (success) "Email sent" else "Error while sending"
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
         })
@@ -93,8 +93,9 @@ fun SettingsScreen(
 }
 
 @Composable
-fun SettingsResetPasswordButton(onClick: () -> Unit,
-                                modifier: Modifier = Modifier
+fun SettingsResetPasswordButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     OutlinedButton(
         modifier = modifier
@@ -152,8 +153,9 @@ fun SettingsProfileCard(
 }
 
 @Composable
-fun SettingsLogoutButton( onClick: () -> Unit,
-modifier: Modifier = Modifier
+fun SettingsLogoutButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     OutlinedButton(
         modifier = modifier
