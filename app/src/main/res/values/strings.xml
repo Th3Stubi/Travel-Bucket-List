@@ -50,7 +50,7 @@
 
     <!-- AddLocation Screen-->
     <string name="addlocation_button_add_location">Add location</string>
-    <string name="addlocation_otf_name">Name</string>
+    <string name="addlocation_otf_name">City</string>
     <string name="addlocation_image_cd_chosen_image">Chosen Image</string>
     <string name="addlocation_button_chose_other_image">Choose other image</string>
     <string name="addlocation_button_choose_image">Choose image</string>

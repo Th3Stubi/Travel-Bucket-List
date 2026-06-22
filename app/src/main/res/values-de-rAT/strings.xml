@@ -31,7 +31,7 @@
     <string name="settings_title">Einstellungen</string>
     <string name="common_cd_goback_icon">Gehe Zurück Symbol</string>
     <string name="addlocation_button_add_location">Ort hinzufügen</string>
-    <string name="addlocation_otf_name">Name</string>
+    <string name="addlocation_otf_name">Stadt</string>
     <string name="common_text_country">Land</string>
     <string name="addlocation_image_cd_chosen_image">Ausgewähltes Bild</string>
     <string name="addlocation_button_chose_other_image">Anderes Bild wählen</string>
