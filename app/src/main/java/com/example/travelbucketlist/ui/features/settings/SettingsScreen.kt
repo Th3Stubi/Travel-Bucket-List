@@ -1,5 +1,6 @@
 package com.example.travelbucketlist.ui.features.settings
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -34,10 +35,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.travelbucketlist.ui.theme.Dimens
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.filled.Language
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 /**
  * The settings screen.
  */
+@SuppressLint("LocalContextConfigurationRead")
 @Composable
 fun SettingsScreen(
     onLogout: () -> Unit,
@@ -84,6 +92,37 @@ fun SettingsScreen(
         })
 
         Spacer(modifier = Modifier.height(Dimens.spacingMedium))
+
+        val currentLocale = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+        val buttonText = if (currentLocale == "" || currentLocale.contains("en")) {
+            "Zu Deutsch wechseln"
+        } else {
+            "Switch to English"
+        }
+        Spacer(modifier = Modifier.height(Dimens.spacingMedium))
+
+        // Translator with the help of Claude coz Debugging
+        var isGerman by remember { mutableStateOf(
+            context.resources.configuration.locales[0].language == "de"
+        ) }
+
+        OutlinedButton(
+            onClick = {
+                viewModel.toggleLanguage(context)
+                isGerman = !isGerman
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Dimens.spacingMedium)
+                .height(Dimens.buttonHeight)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Language,
+                contentDescription = "Sprache wechseln"
+            )
+            Spacer(modifier = Modifier.width(Dimens.spacingSmall))
+            Text(text = if (isGerman) "Switch to English" else "Zu Deutsch wechseln")
+        }
 
         SettingsLogoutButton(onClick = {
             viewModel.logout()
